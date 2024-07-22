@@ -2,6 +2,7 @@ package com.accioshoppingbackend.Accio.Shopping.Website.service;
 
 import com.accioshoppingbackend.Accio.Shopping.Website.model.ApplicationUser;
 import com.accioshoppingbackend.Accio.Shopping.Website.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +14,10 @@ public class UserService {
     // Get User who has ordered maximum products
 
     // When we are creating property of another class into a class we call it as dependency injectedb
-    private UserRepository userRepository = new UserRepository();
+
+    @Autowired
+    private UserRepository userRepository;
+
     public void createUser(ApplicationUser applicationUser){
         // This method wants to save the user into the database
         // So this method will call repository layer to save the user.

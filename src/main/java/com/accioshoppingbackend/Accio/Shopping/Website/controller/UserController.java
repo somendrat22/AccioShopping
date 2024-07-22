@@ -3,6 +3,7 @@ package com.accioshoppingbackend.Accio.Shopping.Website.controller;
 import com.accioshoppingbackend.Accio.Shopping.Website.model.ApplicationUser;
 import com.accioshoppingbackend.Accio.Shopping.Website.service.AllUserDetailService;
 import com.accioshoppingbackend.Accio.Shopping.Website.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,9 +11,11 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    private UserService userService = new UserService();
+    @Autowired
+    private UserService userService;
 
-    private AllUserDetailService allUserDetailService = new AllUserDetailService();
+    @Autowired
+    private AllUserDetailService allUserDetailService;
 
     @PostMapping("/api/register/user")
     public String registerUser(@RequestBody ApplicationUser applicationUser){
