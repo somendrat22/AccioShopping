@@ -6,9 +6,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+
+    // This service layer is to perform all crud related operations
     // We need to tell springboot hey this class is serviceclass
 
     // Get User who has ordered maximum products
+
+    // When we are creating property of another class into a class we call it as dependency injectedb
     private UserRepository userRepository = new UserRepository();
     public void createUser(ApplicationUser applicationUser){
         // This method wants to save the user into the database
@@ -24,5 +28,9 @@ public class UserService {
 
     public void updateUserByEmail(ApplicationUser applicationUser, String email){
         userRepository.updateUser(email, applicationUser);
+    }
+
+    public void deleteUser(String email){
+        userRepository.deleteUser(email);
     }
 }

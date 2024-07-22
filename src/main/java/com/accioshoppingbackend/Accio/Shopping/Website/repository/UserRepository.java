@@ -15,6 +15,10 @@ public class UserRepository {
         userDB.put(userEmail, applicationUser);
     }
 
+    public HashMap<String, ApplicationUser> getAllUser(){
+        return userDB;
+    }
+
     public ApplicationUser getUserByEmail(String email){
         ApplicationUser user = userDB.get(email);
         return user;
@@ -22,5 +26,9 @@ public class UserRepository {
 
     public void updateUser(String email, ApplicationUser user){
         userDB.put(email, user);
+    }
+
+    public void deleteUser(String email){
+        userDB.remove(email);
     }
 }
