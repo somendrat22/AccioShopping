@@ -3,6 +3,7 @@ package com.accioshoppingbackend.Accio.Shopping.Website.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,23 +12,24 @@ import lombok.Setter;
 import java.util.UUID;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class AppUser {
+public class Product {
     @Id
     private UUID id;
-    private String name;
-    private int age;
-    @Column(unique = true, nullable = false)
-    private String email;
+    @Column(nullable = false, unique = true)
+    private String productName;
     @Column(nullable = false)
-    private String password;
-    @Column(unique = true, nullable = false)
-    private Long phoneNumber;
+    private int price;
     @Column(nullable = false)
-    private String address;
+    private int quantity;
+    private double rating;
     @Column(nullable = false)
-    private String userType;
+    private int totalSoldQuantity;
+    @Column(nullable = false)
+    private String category;
+    @ManyToOne
+    AppUser seller;
 }
