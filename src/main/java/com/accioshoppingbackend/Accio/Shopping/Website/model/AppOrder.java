@@ -16,6 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AppOrder {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     UUID id;
     @ManyToOne
     AppUser buyer;
