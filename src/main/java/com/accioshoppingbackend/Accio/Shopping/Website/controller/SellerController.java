@@ -7,6 +7,8 @@ import com.accioshoppingbackend.Accio.Shopping.Website.model.Product;
 import com.accioshoppingbackend.Accio.Shopping.Website.reponsebody.ProductResponseBody;
 import com.accioshoppingbackend.Accio.Shopping.Website.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,5 +43,28 @@ public class SellerController {
     @GetMapping("/product/all")
     public List<ProductResponseBody> getAllProducts(@RequestParam UUID sellerID){
         return sellerService.getAllProductBySellerID(sellerID);
+    }
+
+    // anayltics = "TOTALQUANTITYSOLD", "RATING"
+    @GetMapping("/product/analytics")
+    public ResponseEntity getAnalytics(@RequestParam UUID sellerID,
+                                       @RequestParam UUID productID,
+                                       @RequestParam String analytics){
+        try{
+            if(analytics.equals("TOTALQUNATITYSOLD")){
+                return new ResponseEntity(sellerService.getProductTotalQunatitySoldByID(productID, sellerID), HttpStatus.OK);
+            }else if(analytics.equals("RATING")){
+                return new ResponseEntity(sellerService.getProductRatingByID(productID, sellerID), HttpStatus.OK);
+            }else{
+                return new ResponseEntity("Invalid Analytics", HttpStatus.OK);
+            }
+        }catch(UserNotFound userNotFound){
+            return new ResponseEntity(userNotFound.getMessage(), HttpStatus.OK);
+        }catch (InvalidProductID invalidProductID){
+            return new ResponseEntity(invalidProductID.getMessage(), HttpStatus.OK);
+        }catch (AcessNotFound acessNotFound){
+            return new ResponseEntity(acessNotFound.getMessage(), HttpStatus.OK);
+        }
+
     }
 }

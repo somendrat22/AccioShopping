@@ -124,4 +124,73 @@ public class SellerService {
 
         return productResponseBodyList;
     }
+
+
+    public Double getProductRatingByID(UUID productID, UUID sellerID){
+        Boolean isSeller = userService.isSeller(sellerID);
+        if(isSeller == null){
+            throw new UserNotFound(
+                    String.format("Seller wih id %s does not exist",
+                            sellerID.toString())
+            );
+        }
+        if(isSeller == false){
+            throw new AcessNotFound(String.format(
+                    "User with id %s does not have access to delete product",
+                    sellerID.toString()
+            ));
+        }
+        boolean validProduct = productService.validateProductID(productID);
+        if(validProduct == false){
+            throw new InvalidProductID(String.format(
+                    "Product with id %s does not exist in system",
+                    productID.toString()
+            ));
+        }
+        Product product = productService.getProductByID(productID);
+        AppUser owner = product.getSeller();
+        if(!owner.getId().equals(sellerID)){
+            throw new AcessNotFound(String.format(
+                    "User with name %s does not have access to remove product %s",
+                    owner.getName(),
+                    product.getProductName()
+            ));
+        }
+
+        return product.getRating();
+    }
+
+    public Integer getProductTotalQunatitySoldByID(UUID productID, UUID sellerID){
+        Boolean isSeller = userService.isSeller(sellerID);
+        if(isSeller == null){
+            throw new UserNotFound(
+                    String.format("Seller wih id %s does not exist",
+                            sellerID.toString())
+            );
+        }
+        if(isSeller == false){
+            throw new AcessNotFound(String.format(
+                    "User with id %s does not have access to delete product",
+                    sellerID.toString()
+            ));
+        }
+        boolean validProduct = productService.validateProductID(productID);
+        if(validProduct == false){
+            throw new InvalidProductID(String.format(
+                    "Product with id %s does not exist in system",
+                    productID.toString()
+            ));
+        }
+        Product product = productService.getProductByID(productID);
+        AppUser owner = product.getSeller();
+        if(!owner.getId().equals(sellerID)){
+            throw new AcessNotFound(String.format(
+                    "User with name %s does not have access to remove product %s",
+                    owner.getName(),
+                    product.getProductName()
+            ));
+        }
+
+        return product.getTotalSoldQuantity();
+    }
 }
