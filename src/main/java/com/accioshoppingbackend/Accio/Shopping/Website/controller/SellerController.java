@@ -4,10 +4,12 @@ import com.accioshoppingbackend.Accio.Shopping.Website.exception.AcessNotFound;
 import com.accioshoppingbackend.Accio.Shopping.Website.exception.InvalidProductID;
 import com.accioshoppingbackend.Accio.Shopping.Website.exception.UserNotFound;
 import com.accioshoppingbackend.Accio.Shopping.Website.model.Product;
+import com.accioshoppingbackend.Accio.Shopping.Website.reponsebody.ProductResponseBody;
 import com.accioshoppingbackend.Accio.Shopping.Website.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -34,5 +36,10 @@ public class SellerController {
         }catch (AcessNotFound acessNotFound){
             return acessNotFound.getMessage();
         }
+    }
+
+    @GetMapping("/product/all")
+    public List<ProductResponseBody> getAllProducts(@RequestParam UUID sellerID){
+        return sellerService.getAllProductBySellerID(sellerID);
     }
 }
