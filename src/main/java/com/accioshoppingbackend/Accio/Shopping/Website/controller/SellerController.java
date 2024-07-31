@@ -59,11 +59,11 @@ public class SellerController {
                 return new ResponseEntity("Invalid Analytics", HttpStatus.OK);
             }
         }catch(UserNotFound userNotFound){
-            return new ResponseEntity(userNotFound.getMessage(), HttpStatus.OK);
+            return new ResponseEntity(userNotFound.getMessage(), HttpStatus.NOT_FOUND); // 404
         }catch (InvalidProductID invalidProductID){
-            return new ResponseEntity(invalidProductID.getMessage(), HttpStatus.OK);
+            return new ResponseEntity(invalidProductID.getMessage(), HttpStatus.BAD_REQUEST); // 400
         }catch (AcessNotFound acessNotFound){
-            return new ResponseEntity(acessNotFound.getMessage(), HttpStatus.OK);
+            return new ResponseEntity(acessNotFound.getMessage(), HttpStatus.UNAUTHORIZED);
         }
 
     }
