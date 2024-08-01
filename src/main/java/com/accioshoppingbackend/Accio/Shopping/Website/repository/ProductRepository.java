@@ -9,6 +9,8 @@ import java.util.UUID;
 
 public interface ProductRepository extends JpaRepository<Product, UUID> {
 
+    public Product findByProductName(String productName);
+
     @Query(value = "select * from product where seller_id =:sellerID ",
         nativeQuery = true
     )
@@ -47,5 +49,8 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     @Query(value = "select * from product limit 10", nativeQuery = true)
     public List<Product> getProducts();
+
+    @Query(value = "update product set quantity ==:quantity, total_sold_quantity=:totalSoldQuantity where id =:id")
+    public void updateQuantity(int quantity, UUID id, int totalSoldQuantity);
 
 }
